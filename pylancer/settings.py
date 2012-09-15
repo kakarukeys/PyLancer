@@ -147,6 +147,8 @@ LOGGING = {
 # django-social-auth settings
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.facebook.FacebookBackend',
+    #keep this so you have that admin level backend access!
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 LOGIN_URL          = '/login-form/'
