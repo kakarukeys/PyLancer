@@ -1,0 +1,21 @@
+{% extends "project_base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container">
+    
+    {% for job in job_list %}
+    <ul>
+        <li>{{job.title}}</li>
+        <li>{{job.description}}</li>
+    </ul>
+    {% endfor %}
+    
+</div>
+{% endblock content %}
+
+{% block javascript %}
+<script type="text/javascript">
+</script>
+{% endblock %}
+

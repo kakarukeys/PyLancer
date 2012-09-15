@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block page_title %}{% trans "PyLancer - Find a Python freelancer in Sg" %}{% endblock %}
+
+{% block css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/project_base.css" />
+{% endblock %}
+
+{% block header %}
+    <div class="container">
+        <div class="row">
+            <div class="span2">
+                <img src="{{ STATIC_URL }}img/logo_small.png" alt="Logo"/>
+            </div>
+            <div class="span9" id="logo">
+                <br /><br /><br />
+                <h1>PyLancer</h1>
+                <p>Post a job now</p>
+            </div>
+        </div>
+        
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="/">Home</a>
+                    <div class="nav-collapse pull-right">
+                        <ul class="nav">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="#">Blog</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock header %}
+
+{% block footer %}
+    <div id="footer_band">
+        <div class="container">
+            <div class="row">
+                <div class="span1 offset5">
+                    <img src="{{ STATIC_URL }}img/logo_small_embossed.png" alt="" />
+                </div>
+                <div class="span3">
+                    <h2>Contact</h2>
+                    <p>Email us at kakarukeys ~[at]~  gmail.com</p>
+                </div>
+            </div>
+            <div id="footer_last_message"><p>&copy; <em>pylancer.sg</em> All rights reserved.</p></div>
+        </div>
+    </div>
+{% endblock footer %}
+

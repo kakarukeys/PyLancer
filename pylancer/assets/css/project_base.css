@@ -1,0 +1,44 @@
+body {
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #181B20;
+}
+
+header {
+    margin: 5px 0px;
+}
+
+#logo h1 {
+    letter-spacing: -2px;
+    font-size: 35px;
+}
+
+#logo p {
+    font-family: 'Abel', sans-serif;
+    font-size: 14px;
+}
+
+footer .container {
+    color: #A0A0A0;
+    padding: 20px 0;
+}
+
+footer h2 {
+    font-size: 16px;
+}
+
+#footer_band {
+    background-color: #2F3739;
+    margin: 20px 0;
+    border-top:1px solid green;
+    border-bottom:1px solid green;
+}
+
+#footer_last_message {
+    text-align:center;
+}
+
+.flat_page {
+    min-height: 400px;
+}
+
