@@ -144,6 +144,7 @@ LOGGING = {
     }
 }
 
+# django-social-auth settings
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.facebook.FacebookBackend',
 )
