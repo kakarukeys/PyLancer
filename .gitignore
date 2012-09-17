@@ -1,2 +1,6 @@
 *.pyc
+*.swo
+*.swp
+*.log
+*.db
 settings_local.py
