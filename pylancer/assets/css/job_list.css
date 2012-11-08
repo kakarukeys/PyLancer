@@ -1,0 +1,157 @@
+#openings {
+	width: 380px;
+	float: left;
+	border-right: 1px dashed #ccc;
+}
+
+#profiles {
+	width: 280px;
+	float: left;
+	padding-left: 20px;
+}
+
+header h1 {
+	width: 152px;
+	padding-top: 125px;
+	height:0;
+	overflow: hidden;
+	background: url(../img/title_jo.png);
+	margin: auto;
+}
+
+header {
+	margin-bottom: 30px;
+}
+
+#profiles header h1 {
+	background: url(../img/title_hire.png);
+}
+
+.butt {
+	border: 1px solid;
+	width: 6em;
+	text-align: center;
+	border-radius: 25px;
+	margin: auto;
+	display: block;
+	font-weight: bolder;
+}
+
+.butt:hover {
+	color: #C1272D;
+	cursor: pointer;
+}
+
+header .butt {
+	font-size: 0.8em;
+	margin-top: 10px;
+}
+
+#profiles ul {
+	margin-top: 4em;
+}
+
+.full, .part, .free {
+	border-left: 4px solid;
+	padding: 0 10px;
+}
+
+.full {
+	border-color: #3FA9F5;
+}
+
+.part {
+	border-color: #7AC943;
+}
+
+.free {
+	border-color: #FF7BAC;
+}
+
+#typekey span {
+	font-size: 0.8em;
+	border-width: 15px;
+	padding-right: 6px;
+}
+
+ul {
+	list-style: none;
+}
+
+#openings ul {
+    margin-left: 0;
+	margin-right: 20px;
+	color: #4D4D4D;
+	padding-right: 0;
+}
+
+#openings ul span {
+	color: #000;
+}
+
+#openings ul em {
+	color: #006837;
+	font-style: normal;
+}
+
+#openings ul strong {
+	color: #F7931E;
+	font-weight: normal;
+}
+
+#openings ul li {
+    margin-top: 10px;
+}
+
+#openings ul li p:first-child {
+//	background: url(../img/expand.png) 99% top no-repeat;
+}
+
+#openings ul li.expanded p:first-child {
+	background-color: #E0E3EB;
+//	background-image: url(../img/contract.png);
+	margin-bottom: 0;
+}
+
+#profiles ul {
+	padding-left: 0;
+}
+
+#profiles ul li {
+    margin-top: 10px;
+//	background: url(../img/expand.png) right top no-repeat;
+}
+
+#profiles ul li p:first-child {
+	background: url(../img/dev.png) left top no-repeat;
+	padding-left: 26px;
+	margin-bottom: 2px;
+	font-size: 0.9em;
+}
+
+#profiles ul li.expanded:first-child {
+	background-color: #E0E3EB;
+}
+
+.desc {
+	background: #666;
+	color: #FFF;
+	padding: 14px;
+	font-size: 0.8em;
+	margin: 2px 0 0 0;
+}
+
+.desc a.butt {
+	float: right;
+	background-color: #E9EBF4;
+	color: #000;
+	text-decoration: none;
+	border: none;
+	padding: 3px;
+}
+
+.desc a.butt:hover {
+	color: #C1272D;
+}
+
+
