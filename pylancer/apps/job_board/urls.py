@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
-from views import JobList
+from views import JobBoard
 
 urlpatterns = patterns('',
-    url(r'^$', JobList.as_view()),
+    url(r'^$', JobBoard.as_view()),
     
 )
