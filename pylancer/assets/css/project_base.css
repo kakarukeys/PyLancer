@@ -1,3 +1,8 @@
+div#auth {
+    margin-top: 3px;
+    text-align: right;
+}
+
 body {
     font-family: helvetica, arial, sans-serif;
     width: 700px;
