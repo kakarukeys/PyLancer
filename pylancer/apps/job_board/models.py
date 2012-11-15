@@ -19,6 +19,15 @@ class Job(models.Model):
     is_open = models.BooleanField(default=True)
     location = models.CharField(max_length=40)
     
+    def contract_type_as_html(self):
+        if self.contract_type == "FT":
+            return "full"
+        if self.contract_type == "PT":
+            return "part"
+        if self.contract_type == "FL":
+            return "free"
+        return ""
+
 class FreelancerProfile(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()

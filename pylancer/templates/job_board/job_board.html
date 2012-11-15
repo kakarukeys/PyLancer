@@ -19,15 +19,16 @@
 		<p id="typekey"><span class="full">Full-timer</span> <span class="part">Part-timer</span> <span class="free">Freelancer</span></p> <!-- type color key -->
 		
 		<ul> <!-- each item in that list is an opening -->
-			<li>
-				<p class="full"><span>Python guru</span> @ <em>Singapore downtown</em> for <strong>IT Clinic</strong></p>
-				<p class="desc" style="display: none;">Here comes the description .... <a class="butt" href="mailto:mail@example.com?Subject=Python%20guru">Apply</a></p>
-			</li>
-			
-			<li class="expanded">
-				<p class="free"><span>PHP/Python</span> @ <em>anywhere</em> for <strong>source online</strong></p>
-				<p class="desc" style="display: block;"><a class="butt" href="mailto:mail@example.com?Subject=PHP/Python">Apply</a> Here comes the description .... Here comes the description .... Here comes the description .... Here comes the description ....</p>
-			</li>
+			{% for job in job_list.object_list %}
+				<li>
+					<p class="{{ job.contract_type_as_html }}"><span>{{ job.title }}</span> @ <em>{{ job.location }}</em> for <strong>{{ job.title }}</strong></p>
+					<p class="desc" style="display: none;">{{ job.description }}<a class="butt" href="mailto:{{ job.posted_by.email }}?Subject={{ job.title }}">Apply</a></p>
+				</li>
+				<li class="expanded">
+					<p class="{{ job.contract_type_as_html }}"><span>{{ job.title }}</span> @ <em>{{ job.location }}</em> for <strong>{{ job.title }}</strong></p>
+					<p class="desc" style="display: block;"><a class="butt" href="mailto:{{ job.posted_by.email }}?Subject={{ job.title }}">Apply</a> {{ job.description }}</p>
+				</li>
+			{% endfor %}
 		</ul> <!-- END opening list -->
 		
 	</div> <!-- END openings data -->
@@ -42,16 +43,17 @@
 	
 	<div> <!-- profiles data -->
 	<ul> <!-- each item in that list is a developer profile -->
-
-		<li class="expanded">
-			<p>John brown - Freelance developer</p>
-			<p class="desc" style="display: block;"><a class="butt" href="mailto:mail@example.com">Contact</a> Here comes the description .... </p>
-		</li>
-		<li>
-			<p>John brown - Freelance developer</p>
-			<p class="desc" style="display: none;">Here comes the description .... <a class="butt" href="mailto:mail@example.com">Contact</a>
-			</p>
-		</li>
+		{% for profile in freelancer_profile_list.object_list %}
+			<li class="expanded">
+				<p>{{ profile.title }}</p>
+				<p class="desc" style="display: block;"><a class="butt" href="mailto:{{ profile.owner.email }}">Contact</a>{{ profile.description }}</p>
+			</li>
+			<li>
+				<p>{{ profile.title }}</p>
+				<p class="desc" style="display: none;">{{ profile.description }}<a class="butt" href="mailto:{{ profile.owner.email }}">Contact</a>
+				</p>
+			</li>
+		{% endfor %}
 	</ul> <!-- END profiles list -->
 	</div> <!-- END profiles data -->
 </section> <!-- END Developers profiles section -->
