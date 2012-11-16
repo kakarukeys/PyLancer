@@ -16,6 +16,7 @@ class Job(models.Model):
     contract_type = models.CharField(max_length=2, choices=CONTRACT_TYPE_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
     posted_by = models.ForeignKey(User)
+    employer = models.CharField(max_length=255)
     is_open = models.BooleanField(default=True)
     location = models.CharField(max_length=40)
     
