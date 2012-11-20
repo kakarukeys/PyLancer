@@ -12,7 +12,7 @@
 <section id="openings"> <!-- openings section -->
 	<header> <!-- openings section Header -->
 		<h1>Job Openings</h1>
-		<p class="butt addjob"><span onclick="alert('add job');">Add job</span></p>
+		<p class="butt addjob" id="add_job"><span>Add job</span></p>
 	</header> <!-- END openings section Header -->
 	
 	<div> <!-- openings data -->
@@ -32,7 +32,6 @@
 		
 	</div> <!-- END openings data -->
 </section> <!-- END openings section -->
-
 
 <section id="profiles"> <!-- Developers profiles section -->
 	<header> <!-- profiles section Header -->
@@ -55,10 +54,65 @@
 	</ul> <!-- END profiles list -->
 	</div> <!-- END profiles data -->
 </section> <!-- END Developers profiles section -->
+
+<div id="modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3></h3>
+    </div>
+    <div class="modal-body">
+    </div>
+    <div class="modal-footer">
+        <button class="btn submit"></button>
+    </div>
+</div>
+
 {% endblock content %}
 
 {% block javascript %}
 <script type="text/javascript">
+    $("#modal").modal({
+        backdrop: "static", //cannot exit by clicking outside
+        show: false //hide initially
+    });
+    
+    function job_board_setup_modal(title, button_text, url) {
+        /* return the click handler that will show the modal
+         * title: title of the modal
+         * button_text: text on the button at the bottom
+         * url: url to get or post the form
+         */
+        return function() {
+            /* click handler */
+            $("#modal h3").text(title);
+            $("#modal button.submit").text(button_text);
+            $("#modal > div.modal-body").load(url); //get the form
+            
+            $("#modal button.submit").unbind('click').click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: "{% url add_job %}",
+                    data: $("#modal form").serialize(),
+                    success: function(data, status) {
+                        /* if status is redirect - data has been added, go back to homepage with new data
+                         * else form has validation errors, show them
+                         */
+                    },
+                    error: function(xhr, status, error) {
+                        //display error message, ask user to try again later.
+                    }
+                });
+            });
+            
+            $('#modal').modal('show');
+        };
+    }
+    
+    $("#add_job").click(job_board_setup_modal(
+        "Write your job description here",
+        "Add job",
+        "{% url add_job %}"
+    ));
 </script>
 {% endblock %}
 
