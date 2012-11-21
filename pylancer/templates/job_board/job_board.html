@@ -102,9 +102,11 @@
                     url: "{% url add_job %}",
                     data: $("#modal form").serialize(),
                     success: function(data, status) {
-                        /* if status is redirect - data has been added, go back to homepage with new data
-                         * else form has validation errors, show them
-                         */
+                        if (data.status == "failed") {
+                            $("#modal form").html(data.html);
+                        } else if (data.status == "success") {
+                            window.location = data.location;
+                        }
                     },
                     error: function(xhr, status, error) {
                         //display error message, ask user to try again later.
