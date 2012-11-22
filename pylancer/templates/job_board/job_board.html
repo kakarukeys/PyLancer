@@ -33,7 +33,7 @@
 <section id="profiles"> <!-- Developers profiles section -->
 	<header> <!-- profiles section Header -->
 		<h1>Hire me</h1>
-		<p class="butt addprofile"><span onclick="alert('add profile');">Add Profile</span></p>
+		<p class="butt addprofile" id="add_profile"><span>Add Profile</span></p>
 	</header> <!-- END profiles section Header -->
 	
 	<div> <!-- profiles data -->
@@ -99,7 +99,7 @@
             $("#modal button.submit").unbind('click').click(function() {
                 $.ajax({
                     type: 'POST',
-                    url: "{% url add_job %}",
+                    url: url,
                     data: $("#modal form").serialize(),
                     success: function(data, status) {
                         if (data.status == "failed") {
@@ -119,9 +119,15 @@
     }
     
     $("#add_job").click(job_board_setup_modal(
-        "Write your job description here",
+        "Add a new job",
         "Add job",
         "{% url add_job %}"
+    ));
+
+    $("#add_profile").click(job_board_setup_modal(
+        "Add a new profile",
+        "Add profile",
+        "{% url add_profile %}"
     ));
 </script>
 {% endblock %}

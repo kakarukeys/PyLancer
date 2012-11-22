@@ -4,9 +4,10 @@ from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.utils import simplejson as json
 from django.core.urlresolvers import reverse_lazy
+from django.db import IntegrityError
 
 from models import Job, FreelancerProfile
-from forms import AddJobForm
+from forms import AddJobForm, AddProfileForm
 
 # Create your views here.
 
@@ -58,6 +59,44 @@ class AddJob(generic.edit.CreateView):
                 "status": "success",
                 "location": str(self.success_url),
             }
+            return HttpResponse(json.dumps(data), content_type="application/json")
+        else:
+            return HttpResponseRedirect(self.success_url)
+
+    def form_invalid(self, form):
+        if self.request.is_ajax():
+            ctx = RequestContext(self.request, self.get_context_data(form=form))
+            data = {
+                "status": "failed",
+                "html": render_to_string(self.template_name, ctx),
+            }
+            return HttpResponse(json.dumps(data), content_type="application/json")
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+
+class AddProfile(generic.edit.CreateView):
+    model = FreelancerProfile
+    form_class = AddProfileForm
+    initial = {}
+    success_url = reverse_lazy("job_board") #after adding, redirect to job board paeg
+    template_name = "job_board/add_profile.html"
+    
+    def form_valid(self, form):
+        form.instance.posted_by = self.request.user
+
+        if self.request.is_ajax():
+            try:
+                form.instance.save()
+            except IntegrityError:
+                data = {
+                    "status": "failed",
+                    "html": "Error when creating profile",
+                }
+            else:
+                data = {
+                    "status": "success",
+                    "location": str(self.success_url),
+                }
             return HttpResponse(json.dumps(data), content_type="application/json")
         else:
             return HttpResponseRedirect(self.success_url)
