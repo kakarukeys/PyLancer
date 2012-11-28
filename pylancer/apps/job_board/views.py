@@ -82,7 +82,7 @@ class AddProfile(generic.edit.CreateView):
     template_name = "job_board/add_profile.html"
     
     def form_valid(self, form):
-        form.instance.posted_by = self.request.user
+        form.instance.owner = self.request.user
 
         if self.request.is_ajax():
             try:
