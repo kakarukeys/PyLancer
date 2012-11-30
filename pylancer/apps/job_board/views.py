@@ -1,7 +1,13 @@
-import django.views.generic as generic
+from django.views import generic
+from django.http import HttpResponse
+from django.template import RequestContext
+from django.template.loader import render_to_string
+from django.utils import simplejson as json
 from django.core.urlresolvers import reverse_lazy
+from django.db import IntegrityError
 
 from models import Job, FreelancerProfile
+from forms import AddJobForm, AddProfileForm
 
 # Create your views here.
 
@@ -39,7 +45,58 @@ class JobBoard(generic.base.TemplateView):
         
 class AddJob(generic.edit.CreateView):
     model = Job
+    form_class = AddJobForm
     initial = {"title": "Ninja Programmer"}
-    success_url = reverse_lazy("job_board") #after adding, redirect to job board paeg
+    success_url = reverse_lazy("job_board") #after adding, redirect to job board page
     template_name = "job_board/add_job.html"
     
+    def form_valid(self, form):
+        form.instance.posted_by = self.request.user
+        self.object = form.save()
+        
+        data = {
+            "status": "success",
+            "location": str(self.success_url),
+        }
+        return HttpResponse(json.dumps(data), content_type="application/json")
+        
+    def form_invalid(self, form):
+        ctx = RequestContext(self.request, self.get_context_data(form=form))
+        data = {
+            "status": "failed",
+            "html": render_to_string(self.template_name, ctx),
+        }
+        return HttpResponse(json.dumps(data), content_type="application/json")
+        
+class AddProfile(generic.edit.CreateView):
+    model = FreelancerProfile
+    form_class = AddProfileForm
+    initial = {}
+    success_url = reverse_lazy("job_board") #after adding, redirect to job board page
+    template_name = "job_board/add_profile.html"
+    
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        
+        try:
+            self.object = form.save()
+        except IntegrityError:
+            data = {
+                "status": "failed",
+                "html": "Error when creating profile",
+            }
+        else:
+            data = {
+                "status": "success",
+                "location": str(self.success_url),
+            }
+        return HttpResponse(json.dumps(data), content_type="application/json")
+        
+    def form_invalid(self, form):
+        ctx = RequestContext(self.request, self.get_context_data(form=form))
+        data = {
+            "status": "failed",
+            "html": render_to_string(self.template_name, ctx),
+        }
+        return HttpResponse(json.dumps(data), content_type="application/json")
+        

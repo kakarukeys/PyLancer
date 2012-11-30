@@ -19,15 +19,12 @@
 		<p id="typekey"><span class="full">Full-timer</span> <span class="part">Part-timer</span> <span class="free">Freelancer</span></p> <!-- type color key -->
 		
 		<ul> <!-- each item in that list is an opening -->
-			<li>
-				<p class="full"><span>Python guru</span> @ <em>Singapore downtown</em> for <strong>IT Clinic</strong></p>
-				<p class="desc" style="display: none;">Here comes the description .... <a class="butt" href="mailto:mail@example.com?Subject=Python%20guru">Apply</a></p>
-			</li>
-			
-			<li class="expanded">
-				<p class="free"><span>PHP/Python</span> @ <em>anywhere</em> for <strong>source online</strong></p>
-				<p class="desc" style="display: block;"><a class="butt" href="mailto:mail@example.com?Subject=PHP/Python">Apply</a> Here comes the description .... Here comes the description .... Here comes the description .... Here comes the description ....</p>
-			</li>
+			{% for job in job_list.object_list %}
+				<li>
+					<p class="title {{ job.contract_type_as_html }}"><span>{{ job.title }}</span> @ <em>{{ job.location }}</em> for <strong>{{ job.employer }}</strong></p>
+					<p class="desc" style="display: none;">{{ job.description }}<a class="butt" href="mailto:{{ job.posted_by.email }}?Subject={{ job.title }}">Apply</a></p>
+				</li>
+			{% endfor %}
 		</ul> <!-- END opening list -->
 		
 	</div> <!-- END openings data -->
@@ -36,21 +33,18 @@
 <section id="profiles"> <!-- Developers profiles section -->
 	<header> <!-- profiles section Header -->
 		<h1>Hire me</h1>
-		<p class="butt addprofile"><span onclick="alert('add profile');">Add Profile</span></p>
+		<p class="butt addprofile" id="add_profile"><span>Add Profile</span></p>
 	</header> <!-- END profiles section Header -->
 	
 	<div> <!-- profiles data -->
 	<ul> <!-- each item in that list is a developer profile -->
-
-		<li class="expanded">
-			<p>John brown - Freelance developer</p>
-			<p class="desc" style="display: block;"><a class="butt" href="mailto:mail@example.com">Contact</a> Here comes the description .... </p>
-		</li>
-		<li>
-			<p>John brown - Freelance developer</p>
-			<p class="desc" style="display: none;">Here comes the description .... <a class="butt" href="mailto:mail@example.com">Contact</a>
-			</p>
-		</li>
+		{% for profile in freelancer_profile_list.object_list %}
+			<li>
+				<p class="title">{{ profile.title }}</p>
+				<p class="desc" style="display: none;">{{ profile.description }}<a class="butt" href="mailto:{{ profile.owner.email }}">Contact</a>
+				</p>
+			</li>
+		{% endfor %}
 	</ul> <!-- END profiles list -->
 	</div> <!-- END profiles data -->
 </section> <!-- END Developers profiles section -->
@@ -71,6 +65,21 @@
 
 {% block javascript %}
 <script type="text/javascript">
+    $(function() {
+        $('ul > li > p.title').click(function() {
+            /* expansion and collapse when click on a row */
+            var $li = $(this).parent();
+            if ($li.hasClass('expanded')) {
+                $li.find('p.desc').slideToggle('slow', function() {
+                    $li.toggleClass('expanded');
+                })
+            } else {
+                $li.toggleClass('expanded')
+                   .find('p.desc').slideToggle('slow');
+            }
+        })
+    })
+
     $("#modal").modal({
         backdrop: "static", //cannot exit by clicking outside
         show: false //hide initially
@@ -91,12 +100,14 @@
             $("#modal button.submit").unbind('click').click(function() {
                 $.ajax({
                     type: 'POST',
-                    url: "{% url add_job %}",
+                    url: url,
                     data: $("#modal form").serialize(),
                     success: function(data, status) {
-                        /* if status is redirect - data has been added, go back to homepage with new data
-                         * else form has validation errors, show them
-                         */
+                        if (data.status == "failed") {
+                            $("#modal form").html(data.html);
+                        } else if (data.status == "success") {
+                            window.location = data.location;
+                        }
                     },
                     error: function(xhr, status, error) {
                         //display error message, ask user to try again later.
@@ -109,9 +120,15 @@
     }
     
     $("#add_job").click(job_board_setup_modal(
-        "Write your job description here",
+        "Add a new job",
         "Add job",
         "{% url add_job %}"
+    ));
+
+    $("#add_profile").click(job_board_setup_modal(
+        "Add a new profile",
+        "Add profile",
+        "{% url add_profile %}"
     ));
 </script>
 {% endblock %}
