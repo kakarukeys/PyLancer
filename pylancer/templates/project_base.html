@@ -8,17 +8,41 @@
 {% endblock %}
 
 {% block header %}
-    <div id="auth">
-        {% if user.is_authenticated %}
-            {{ user.get_full_name }}
-            <a href="{% url logout %}"><img width="20" src="{{ STATIC_URL }}img/logout.png" /></a>
-        {% else %}
-            Login with <a href="{% url socialauth_begin 'facebook' %}">Facebook</a>
-        {% endif %}
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span12">
+                <ul class="inline pull-right" id="top-bar">
+                    <li>
+                        <span id="view-mine">View my stuff <img width="20" src="{{ STATIC_URL }}img/my_stuff.png" /></span>
+                        <span id="view-all" class="hide">View all <img width="16" src="{{ STATIC_URL }}img/all_stuff.gif" /></span>
+                    </li>
+                    <li>
+                        {% if user.is_authenticated %}
+                            {{ user.get_full_name }}
+                            <a href="{% url logout %}"><img src="{{ STATIC_URL }}img/logout.png" /></a>
+                        {% else %}
+                            Login with <a href="{% url socialauth_begin 'facebook' %}"><img width="20" src="{{ STATIC_URL }}img/facebook.png" /></a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="row-fluid">
+            <div class="span2 offset5">
+                <h1>Python Jobs</h1>
+            </div>
+        </div>
     </div>
 {% endblock header %}
 
 {% block footer %}
-    <p>&copy; Python Jobs 2012</p>
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span12">
+                <small>&copy; Python Jobs 2012</small>
+            </div>
+        </div>
+    </div>
 {% endblock footer %}
 

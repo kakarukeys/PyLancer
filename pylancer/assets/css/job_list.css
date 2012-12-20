@@ -1,54 +1,76 @@
-#openings {
-	width: 380px;
-	float: left;
-	border-right: 1px dashed #ccc;
+section header {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-#profiles {
-	width: 280px;
-	float: left;
-	padding-left: 20px;
-}
-
-header h1 {
-	width: 152px;
-	padding-top: 125px;
+section h2 {
 	height:0;
 	overflow: hidden;
-	background: url(../img/title_jo.png);
-	margin: auto;
+	padding-top: 125px;
 }
 
-header {
-	margin-bottom: 30px;
+div#vertical-sep {
+    border-left: 1px dashed #ccc;
 }
 
-#profiles header h1 {
-	background: url(../img/title_hire.png);
+.title {
+    cursor: pointer;
+    margin-top: 7px;
+    margin-bottom: 2px;
 }
 
-.butt {
-	border: 1px solid;
-	width: 6em;
-	text-align: center;
-	border-radius: 25px;
-	margin: auto;
-	display: block;
-	font-weight: bolder;
+.title > span {
+    font-weight: bold;
 }
 
-.butt:hover {
-	color: #C1272D;
-	cursor: pointer;
+.title > em {
+	color: #006837;
+	font-style: normal;
 }
 
-header .butt {
+.title > strong {
+	color: #F7931E;
+	font-weight: normal;
+}
+
+.desc {
+	background: #666;
+	color: #FFF;
+	padding: 14px;
 	font-size: 0.8em;
-	margin-top: 10px;
 }
 
-#profiles ul {
-	margin-top: 4em;
+.desc a.butt {
+	float: right;
+	background-color: #E9EBF4;
+	color: #000;
+	text-decoration: none;
+	border: none;
+	padding: 2px;
+	font-size: 0.9em;
+}
+
+.desc a.butt:hover {
+	color: #C1272D;
+}
+
+p.title:hover {
+    background-color: #DAE8EB;
+}
+
+#profiles p.title:hover {
+    background-color: #DAE8EB;
+}
+
+/* jobs section only */
+
+section#jobs h2 {
+	background: url(../img/title_jo.png) no-repeat;
+}
+
+#typekey span {
+	border-width: 15px;
+	padding-right: 15px;
 }
 
 .full, .part, .free {
@@ -57,7 +79,7 @@ header .butt {
 }
 
 .full {
-	border-color: #3FA9F5;
+	border-color: #1080C3;
 }
 
 .part {
@@ -68,92 +90,14 @@ header .butt {
 	border-color: #FF7BAC;
 }
 
-#typekey span {
-	font-size: 0.8em;
-	border-width: 15px;
-	padding-right: 6px;
+/* Profiles section only */
+
+section#profiles h2 {
+	background: url(../img/title_hire.png);
 }
 
-ul {
-	list-style: none;
-}
-
-#openings ul {
-    margin-left: 0;
-	margin-right: 20px;
-	color: #4D4D4D;
-	padding-right: 0;
-}
-
-#openings ul span {
-	color: #000;
-}
-
-#openings ul em {
-	color: #006837;
-	font-style: normal;
-}
-
-#openings ul strong {
-	color: #F7931E;
-	font-weight: normal;
-}
-
-#openings ul li {
-    margin-top: 10px;
-}
-
-#openings ul li p:first-child {
-//	background: url(../img/expand.png) 99% top no-repeat;
-}
-
-#openings ul li.expanded p:first-child {
-	background-color: #E0E3EB;
-//	background-image: url(../img/contract.png);
-	margin-bottom: 0;
-}
-
-#profiles ul {
-	padding-left: 0;
-}
-
-#profiles ul li {
-    margin-top: 10px;
-//	background: url(../img/expand.png) right top no-repeat;
-}
-
-#profiles ul li p:first-child {
+section#profiles p.title {
 	background: url(../img/dev.png) left top no-repeat;
 	padding-left: 26px;
-	margin-bottom: 2px;
-	font-size: 0.9em;
 }
 
-#profiles ul li.expanded:first-child {
-	background-color: #E0E3EB;
-}
-
-.desc {
-	background: #666;
-	color: #FFF;
-	padding: 14px;
-	font-size: 0.8em;
-	margin: 2px 0 0 0;
-}
-
-.desc a.butt {
-	float: right;
-	background-color: #E9EBF4;
-	color: #000;
-	text-decoration: none;
-	border: none;
-	padding: 3px;
-}
-
-.desc a.butt:hover {
-	color: #C1272D;
-}
-
-.errorlist {
-	color: #FF0000;
-}

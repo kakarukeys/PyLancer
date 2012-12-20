@@ -7,75 +7,108 @@
 {% endblock %}
 
 {% block content %}
-<h1>Python Jobs</h1>
-
-<section id="openings"> <!-- openings section -->
-	<header> <!-- openings section Header -->
-		<h1>Job Openings</h1>
-		<p class="butt addjob" id="add_job"><span>Add job</span></p>
-	</header> <!-- END openings section Header -->
+    <div class="container">
+        <div class="row-fluid">
+            <section id="jobs" class="span6">
+	            <header class="row-fluid">
+	                <div class="span4 offset4">
+		                <h2>Job Openings</h2>
+		                <button type="button" id="add_job" class="butt">Add Job</button>
+		            </div>
+	            </header>
 	
-	<div> <!-- openings data -->
-		<p id="typekey"><span class="full">Full-timer</span> <span class="part">Part-timer</span> <span class="free">Freelancer</span></p> <!-- type color key -->
-		
-		<ul> <!-- each item in that list is an opening -->
-			{% for job in job_list.object_list %}
-				<li>
-					<p class="title {{ job.contract_type_as_html }}"><span>{{ job.title }}</span> @ <em>{{ job.location }}</em> for <strong>{{ job.employer }}</strong></p>
-					<p class="desc" style="display: none;">{{ job.description }}<a class="butt" href="mailto:{{ job.posted_by.email }}?Subject={{ job.title }}">Apply</a></p>
-				</li>
-			{% endfor %}
-		</ul> <!-- END opening list -->
-		
-	</div> <!-- END openings data -->
-</section> <!-- END openings section -->
+	            <div class="row-fluid">
+	                <div id="typekey" class="span12">
+	                    <span class="full"><small>Full-timer</small></span>
+	                    <span class="part"><small>Part-timer</small></span>
+	                    <span class="free"><small>Freelancer</small></span>
+	                </div>
+		        </div>
+		        
+	            <ul class="unstyled">
+		        {% for job in job_list.object_list %}
+			        <li class="row-fluid">
+			            <div class="span11">
+				            <p class="title {{ job.contract_type_as_html }}">
+				                <span>{{ job.title }}</span> @ <em>{{ job.location }}</em> for <strong>{{ job.employer }}</strong>
+				            </p>
+				            <div class="desc hide">
+				                {{ job.description }}
+				                <a class="butt" href="mailto:{{ job.posted_by.email }}?Subject={{ job.title }}">Apply</a>
+				            </div>
+				        </div>
+				        <div class="span1 row-controls">
+				            <i class="icon-edit"></i>
+				            <i class="icon-remove-sign"></i>
+				        </div>
+			        </li>
+		        {% endfor %}
+	            </ul>
 
-<section id="profiles"> <!-- Developers profiles section -->
-	<header> <!-- profiles section Header -->
-		<h1>Hire me</h1>
-		<p class="butt addprofile" id="add_profile"><span>Add Profile</span></p>
-	</header> <!-- END profiles section Header -->
+            </section>
+
+            <div id="vertical-sep" class="span1">
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            </div>
+
+            <section id="profiles" class="span5">
+	            <header class="row-fluid">
+	                <div class="span4 offset4">
+		                <h2>Hire me</h2>
+		                <button type="button" id="add_profile" class="butt">Add Profile</button>
+		            </div>
+	            </header>
 	
-	<div> <!-- profiles data -->
-	<ul> <!-- each item in that list is a developer profile -->
-		{% for profile in freelancer_profile_list.object_list %}
-			<li>
-				<p class="title">{{ profile.title }}</p>
-				<p class="desc" style="display: none;">{{ profile.description }}<a class="butt" href="mailto:{{ profile.owner.email }}">Contact</a>
-				</p>
-			</li>
-		{% endfor %}
-	</ul> <!-- END profiles list -->
-	</div> <!-- END profiles data -->
-</section> <!-- END Developers profiles section -->
 
-<div id="modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3></h3>
+	            <ul class="unstyled">
+		        {% for profile in freelancer_profile_list.object_list %}
+			        <li class="row-fluid">
+			            <div class="span10">
+				            <p class="title">{{ profile.title }}</p>
+				            <div class="desc hide">
+				                {{ profile.description }}
+				                <a class="butt" href="mailto:{{ profile.owner.email }}">Contact</a>
+				            </div>
+				        </div>
+				        <div class="span2">
+				            <i class="icon-edit"></i>
+				            <i class="icon-remove-sign"></i>
+				        </div>
+			        </li>
+		        {% endfor %}
+	            </ul>
+	            
+            </section>
+       </div>
     </div>
-    <div class="modal-body">
+
+    <div id="modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3></h3>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+            <button class="btn submit"></button>
+        </div>
     </div>
-    <div class="modal-footer">
-        <button class="btn submit"></button>
-    </div>
-</div>
 
 {% endblock content %}
 
 {% block javascript %}
 <script type="text/javascript">
     $(function() {
-        $('ul > li > p.title').click(function() {
+        $('p.title').click(function() {
             /* expansion and collapse when click on a row */
             var $li = $(this).parent();
             if ($li.hasClass('expanded')) {
-                $li.find('p.desc').slideToggle('slow', function() {
+                $li.find('div.desc').slideToggle('slow', function() {
                     $li.toggleClass('expanded');
                 })
             } else {
                 $li.toggleClass('expanded')
-                   .find('p.desc').slideToggle('slow');
+                   .find('div.desc').slideToggle('slow');
             }
         })
     })

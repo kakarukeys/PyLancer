@@ -1,25 +1,26 @@
-div#auth {
-    margin-top: 3px;
-    text-align: right;
+ul#top-bar {
+    margin-top: 5px;
 }
 
-body {
-    font-family: helvetica, arial, sans-serif;
-    width: 700px;
-    margin: auto;
-}
-
-body > div > h1 {
-	width: 175px;
-	padding-top: 58px;
-	height: 0;
+h1 {
+	background: url(../img/python_jobs_logo.png) no-repeat;
+	
+    height: 0;
 	overflow: hidden;
-	background: url(../img/python_jobs_logo.png);
-	margin: 10px auto;
+	padding-top: 58px;
 }
 
-footer {
-	clear: left;
+.butt {
+	border-radius: 10px;
+	border: 1px solid;
+	background-color: white;
+	text-align: center;
+	width: 7em;
+	font-weight: bolder;
 	font-size: 0.8em;
+}
+
+.butt:hover {
+	color: #C1272D;
 }
 
